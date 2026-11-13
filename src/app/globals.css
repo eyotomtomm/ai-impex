@@ -82,3 +82,370 @@ button.progress-wrap,
     animation: none !important;
   }
 }
+
+/* ---------- Our own additions (not from the template) ---------- */
+:root {
+  --green: #1fb26a;
+  --line: rgba(255, 255, 255, 0.1);
+}
+
+html.loaded .loader-wrap {
+  display: none;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+}
+
+/* Nav */
+.navbar button.nav-link {
+  background: none;
+  border: 0;
+  color: inherit;
+}
+
+.navbar .nav-link.is-active .rolling-text {
+  color: var(--green);
+}
+
+.navbar .dropdown-menu {
+  background: #0e2c1d;
+  border: 1px solid var(--line);
+}
+
+.page-header {
+  min-height: 60vh;
+  background-size: cover;
+  background-position: 50% 20%;
+}
+
+.page-header .crumb {
+  opacity: 0.8;
+}
+
+/* Image reveal: wipes open when scrolled into view */
+.reveal-img {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-img.animated {
+  clip-path: inset(0);
+}
+
+/* Farm to market */
+.chain-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 30px;
+  padding: 0;
+  margin: 0;
+}
+
+.chain-line {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: var(--line);
+}
+
+.chain-fill {
+  --p: 1;
+  position: absolute;
+  inset: 0;
+  background: var(--green);
+  transform-origin: 0 0;
+  transform: scaleX(var(--p));
+}
+
+.chain-dot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  margin-bottom: 30px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: #0e2c1d;
+  color: var(--green);
+  font-size: 22px;
+}
+
+.chain-num {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.chain-step h5 {
+  margin-bottom: 12px;
+}
+
+.chain-step p {
+  font-size: 15px;
+}
+
+/* Product explorer */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chip {
+  padding: 10px 22px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  background: transparent;
+  color: #fff;
+  font-size: 14px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.chip:hover {
+  border-color: var(--green);
+}
+
+.chip.on {
+  background: var(--green);
+  border-color: var(--green);
+  color: #06170e;
+  font-weight: 600;
+}
+
+.explorer-group + .explorer-group {
+  margin-top: 90px;
+  padding-top: 90px;
+  border-top: 1px solid var(--line);
+}
+
+.product-card {
+  margin-bottom: 30px;
+}
+
+.product-card .img {
+  aspect-ratio: 4 / 3;
+  margin-bottom: 22px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #0e2c1d;
+}
+
+.product-card .img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.product-card:hover .img img {
+  transform: scale(1.06);
+}
+
+.product-card h5 {
+  margin-bottom: 8px;
+}
+
+/* Locations */
+.places-list {
+  padding: 0;
+  margin: 0;
+}
+
+.places-list a {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  opacity: 0.55;
+  transition: opacity 0.3s, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.places-list li:last-child a {
+  border-bottom: 1px solid var(--line);
+}
+
+.places-list li.on a,
+.places-list a:focus-visible {
+  opacity: 1;
+  transform: translateX(14px);
+}
+
+.places-list .num {
+  font-size: 13px;
+  padding-top: 12px;
+}
+
+.places-list .body {
+  flex: 1;
+}
+
+.places-list .place {
+  display: block;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.places-list .role {
+  display: block;
+  margin: 6px 0 10px;
+}
+
+.places-list .desc {
+  display: block;
+  font-size: 15px;
+  color: #b8c7bf;
+}
+
+.places-list .inline-img {
+  display: none;
+}
+
+.places-list i {
+  padding-top: 14px;
+}
+
+.places-photo {
+  position: sticky;
+  top: 120px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #0e2c1d;
+}
+
+.places-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.06);
+  transition: opacity 0.6s, transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.places-photo img.on {
+  opacity: 1;
+  transform: none;
+}
+
+/* Next division banner */
+.next-division {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 110px 20px;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  isolation: isolate;
+}
+
+.next-division::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(10, 36, 23, 0.82);
+  transition: background 0.5s;
+}
+
+.next-division:hover::before {
+  background: rgba(10, 36, 23, 0.6);
+}
+
+.next-division .title {
+  font-size: clamp(34px, 6vw, 70px);
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.next-division i {
+  font-size: 24px;
+  transition: transform 0.4s;
+}
+
+.next-division:hover i {
+  transform: translateX(12px);
+}
+
+@media (max-width: 991px) {
+  .chain-steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .chain-line {
+    top: 32px;
+    bottom: 32px;
+    right: auto;
+    width: 1px;
+    height: auto;
+  }
+
+  .chain-fill {
+    transform: scaleY(var(--p));
+  }
+
+  .chain-step {
+    position: relative;
+    padding-left: 94px;
+  }
+
+  .chain-dot {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .places-list .place {
+    font-size: 26px;
+  }
+
+  .places-list a,
+  .places-list li.on a {
+    opacity: 1;
+    gap: 16px;
+    transform: none;
+  }
+
+  .places-list .inline-img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin-top: 18px;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .page-header h1.fz-80 {
+    font-size: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-img {
+    clip-path: none;
+    transition: none;
+  }
+}

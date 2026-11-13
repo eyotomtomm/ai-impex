@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element -- template CSS styles raw <img> sizes/object-fit directly */
-import { brand, capacity, divisions, exports, marquee, story } from "@/lib/content";
+import Link from "next/link";
+import { brand, capacity, chain, divisions, exports, marquee, story } from "@/lib/content";
 import { Logo } from "@/components/Navbar";
 
 export function Chrome() {
@@ -65,9 +66,9 @@ export function Header() {
                     </p>
                   </div>
                   <div className="d-flex align-items-center mt-60">
-                    <a href="#contact" className="butn butn-md butn-bord radius-30">
+                    <Link href="/contact" className="butn butn-md butn-bord radius-30">
                       <span className="text">Contact Us</span>
-                    </a>
+                    </Link>
                     <a href="#about" className="icon-img-60 ml-20" aria-label="Scroll to About">
                       <img src="/assets/imgs/icon-img/arrow-down-big.png" alt="" />
                     </a>
@@ -119,7 +120,7 @@ function Strip({ items, href }: { items: string[]; href?: string }) {
     <div className="slide-har st1">
       {row}
       {row}
-      {href && <a href={href} className="overlay-link" aria-label="Contact us"></a>}
+      {href && <Link href={href} className="overlay-link" aria-label="Contact us"></Link>}
     </div>
   );
 }
@@ -159,13 +160,16 @@ export function About() {
                   economic growth.
                 </h4>
                 <p>{story.body}</p>
+                <Link href="/about" className="underline main-color mt-30">
+                  <span className="text">Our full story <i className="ti-arrow-top-right"></i></span>
+                </Link>
                 <div className="numbers mt-50">
                   <div className="row lg-marg">
                     {story.stats.map((s) => (
                       <div className="col-md-6" key={s.label}>
                         <div className="item bord-thin-top pt-30 d-flex align-items-end mt-20">
                           <div>
-                            <h3 className="fw-300 mb-10">{s.value}</h3>
+                            <h3 className="fw-300 mb-10" data-count>{s.value}</h3>
                             <h6 className="p-color sub-title">{s.label}</h6>
                           </div>
                           <div className="ml-auto">
@@ -220,16 +224,12 @@ export function Divisions() {
                       <h4>{d.title}</h4>
                     </div>
                     <div>
-                      <p>{d.body}</p>
-                      <a
-                        href={d.href ?? "#contact"}
-                        className="underline mt-15"
-                        {...(d.href ? { target: "_blank", rel: "noreferrer" } : {})}
-                      >
+                      <p>{d.summary}</p>
+                      <Link href={`/divisions/${d.slug}`} className="underline mt-15">
                         <span className="text main-color sub-title">
-                          {d.href ? "Visit Site" : "Enquire"} <i className="ti-arrow-top-right"></i>
+                          Explore Division <i className="ti-arrow-top-right"></i>
                         </span>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
@@ -276,7 +276,7 @@ export function Capacity() {
                   <div className="img">
                     <img src={c.image} alt="" />
                   </div>
-                  <span className="value">{c.value}</span>
+                  <span className="value" data-count>{c.value}</span>
                 </div>
                 <h6 className="fz-18">{c.label}</h6>
               </div>
@@ -317,14 +317,14 @@ export function Export() {
                 </div>
                 <div className="cont pt-30">
                   <h5>{x.title}</h5>
-                  <a href="#contact" className="butn-crev d-flex align-items-center mt-30">
+                  <Link href={x.href} className="butn-crev d-flex align-items-center mt-30">
                     <span className="hover-this">
                       <span className="circle hover-anim">
                         <i className="ti-arrow-top-right"></i>
                       </span>
                     </span>
-                    <span className="text">Request a quote</span>
-                  </a>
+                    <span className="text">Learn more</span>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -339,7 +339,7 @@ export function CallMarq() {
   return (
     <section className="call-marq section-padding o-hidden">
       <div className="main-marq lrg sub-bg pt-20 pb-20">
-        <Strip items={Array(6).fill("Get In Touch")} href="#contact" />
+        <Strip items={Array(6).fill("Get In Touch")} href="/contact" />
       </div>
       <div className="main-marq bord-item">
         <div className="slide-har st2">
@@ -354,7 +354,7 @@ export function CallMarq() {
               ))}
             </div>
           ))}
-          <a href="#contact" className="overlay-link" aria-label="Contact us"></a>
+          <Link href="/contact" className="overlay-link" aria-label="Contact us"></Link>
         </div>
       </div>
     </section>
@@ -363,7 +363,7 @@ export function CallMarq() {
 
 export function Footer() {
   return (
-    <footer id="contact" className="clean-footer crev">
+    <footer className="clean-footer crev">
       <div className="container pb-40 pt-40 ontop">
         <div className="row justify-content-between">
           <div className="col-lg-2">
@@ -384,6 +384,9 @@ export function Footer() {
                 <span className="fz-22 main-color">{brand.phone}</span>
               </a>
               <p className="fz-14 opacity-7 mt-15">
+                {brand.hours.join(" · ")}
+              </p>
+              <p className="fz-14 opacity-7">
                 PBX: {brand.pbx} · Fax: {brand.fax}
               </p>
             </div>
@@ -392,10 +395,10 @@ export function Footer() {
             <div className="column md-mb50">
               <h6 className="sub-title mb-30">Quick Links</h6>
               <ul className="rest fz-14 opacity-7">
-                <li className="mb-15"><a href="#about">About Us</a></li>
-                <li className="mb-15"><a href="#divisions">Our Divisions</a></li>
-                <li className="mb-15"><a href="#export">Export</a></li>
-                <li><a href={`mailto:${brand.email}`}>Send a Message</a></li>
+                <li className="mb-15"><Link href="/about">About Us</Link></li>
+                <li className="mb-15"><Link href="/products">Our Products</Link></li>
+                <li className="mb-15"><Link href="/locations">Locations</Link></li>
+                <li><Link href="/contact">Send a Message</Link></li>
               </ul>
             </div>
           </div>
@@ -421,5 +424,77 @@ export function Footer() {
         <img src="/assets/imgs/patterns/blur1.png" alt="" />
       </div>
     </footer>
+  );
+}
+
+// ---- Our own sections (not from the template) ----
+
+export function ValueChain() {
+  return (
+    <section className="chain section-padding">
+      <div className="container">
+        <div className="sec-head mb-80">
+          <span className="sub-title main-color mb-5">How we work</span>
+          <h3 className="fw-600 fz-50 text-u d-rotate wow">
+            <span className="rotate-text">
+              From farm <span className="fw-200">to market.</span>
+            </span>
+          </h3>
+        </div>
+        <ol className="chain-steps">
+          <li className="chain-line" aria-hidden="true">
+            <span className="chain-fill"></span>
+          </li>
+          {chain.map((c, i) => (
+            <li className="chain-step" key={c.title}>
+              <span className="chain-dot">
+                <i className={`fas ${c.icon}`}></i>
+              </span>
+              <span className="chain-num">0{i + 1}</span>
+              <h5>{c.title}</h5>
+              <p>{c.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+export function PageHeader({ bold, light, image, crumb }: { bold: string; light?: string; image: string; crumb?: string }) {
+  return (
+    <header className="page-header bg-img section-padding valign" style={{ backgroundImage: `url('${image}')` }} data-overlay-dark="8">
+      <div className="container pt-80">
+        <div className="text-center">
+          <p className="crumb sub-title mb-15">
+            <Link href="/">Home</Link> / {crumb ?? `${bold} ${light ?? ""}`}
+          </p>
+          <h1 className="text-u ls1 fz-80">
+            {bold} {light && <span className="fw-200">{light}</span>}
+          </h1>
+        </div>
+      </div>
+    </header>
+  );
+}
+
+export function Numbers() {
+  return (
+    <section className="numbers-crev section-padding o-hidden">
+      <div className="container">
+        <div className="row lg-marg justify-content-center">
+          {story.numbers.map((n) => (
+            <div className="col-lg-4 col-md-6" key={n.label}>
+              <div className="item text-center md-mb50">
+                <div className="o-hidden">
+                  <h3 className="stroke" data-count>{n.value}</h3>
+                </div>
+                <h6 className="p-color sub-title">{n.label}</h6>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
