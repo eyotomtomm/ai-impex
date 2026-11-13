@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-11-13T08:00:15.249Z",
+        "reason": "Claude: font is set by the Webfolio template's style.css (body font-family); user asked to replicate the template's Personal layout in Next.js"
+      }
+    ]
+  }
+}
